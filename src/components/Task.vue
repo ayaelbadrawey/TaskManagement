@@ -1,5 +1,7 @@
 <script setup>
 import { useStore } from "vuex";
+import Swal from 'sweetalert2';
+
 const store = useStore();
 
 const props = defineProps({
@@ -17,6 +19,22 @@ const changeStatus = (task, status) =>{
     }
     store.dispatch("updateTask", { ...updated_task })    
 }
+const deleteTask = async (id) => {
+    const result = await Swal.fire({
+        title: 'Are you sure you want to delete this task?',
+        text: '',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+    });
+
+    if (result.isConfirmed) {
+        store.dispatch("deleteTask", id)
+        Swal.fire('Deleted!', 'Task has been deleted.', 'success');
+    }
+};
+
 
 </script>
 
@@ -24,18 +42,22 @@ const changeStatus = (task, status) =>{
     <div class="task">
         <div class="d-flex justify-content-between w-100 h-0">
             <h4 class="m-0">{{ task.title }}</h4>
-            <button class="edit-button" @click="goToEditPage(id)">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
-                </svg>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-                </svg>
-            </button>
+            <div class="d-flex">
+                <button class="edit-delete-button" @click="goToEditPage(id)">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                    </svg>
+                </button>
+                <button class="edit-delete-button" @click="deleteTask(task.id)">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                    </svg>
+                </button>
+            </div>
         </div>
         <div class="description">{{ task.description }}</div>
         <div class="d-flex flex-column gap-2">
@@ -49,8 +71,7 @@ const changeStatus = (task, status) =>{
                         clip-rule="evenodd" />
                 </svg>
                 Start Task</button>
-            <button class="operation-button" v-if="task.status == 'In Progress'"
-                @click="changeStatus(task, 'Done')">
+            <button class="operation-button" v-if="task.status == 'In Progress'" @click="changeStatus(task, 'Done')">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -87,11 +108,12 @@ const changeStatus = (task, status) =>{
     -webkit-box-orient: vertical;
 }
 
-.edit-button {
+.edit-delete-button {
     height: unset !important;
     border: unset;
     background-color: unset;
     display: flex;
+    padding: unset;
 }
 
 .operation-button {
