@@ -1,11 +1,29 @@
 <script setup>
+import { useStore } from "vuex";
+const store = useStore();
+
+const props = defineProps({
+    task: {
+        type: Object,
+        required: true,
+    },
+});
+const changeStatus = (task, status) =>{
+    const updated_task = {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        status: status
+    }
+    store.dispatch("updateTask", { ...updated_task })    
+}
 
 </script>
 
 <template>
     <div class="task">
         <div class="d-flex justify-content-between w-100 h-0">
-            <h4 class="m-0">Title</h4>
+            <h4 class="m-0">{{ task.title }}</h4>
             <button class="edit-button" @click="goToEditPage(id)">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -19,29 +37,27 @@
                 </svg>
             </button>
         </div>
-        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, iure adipisci a
-            delectus
-            reiciendis ex! Facere necessitatibus reprehenderit laborum optio aut repudiandae, quos amet modi est quaerat
-            qui vel laudantium! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique architecto sunt
-            voluptates corrupti esse itaque tempora repellat autem aspernatur accusamus, beatae quia iste sequi
-            veritatis consequatur, at et aperiam nihil.</div>
-        <span class="text-primary">Todo</span>
-        <button class="operation-button">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" fill="currebluentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z"
-                    clip-rule="evenodd" />
-            </svg>
-            Start Task</button>
-        <!-- <span class="text-warning">In-Progress</span>
-        <button class="operation-button">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6" />
-            </svg>
-            Mark as completed</button>
-        <span class="text-success">Completed</span> -->
+        <div class="description">{{ task.description }}</div>
+        <div class="d-flex flex-column gap-2">
+            <span
+                :class="task.status == 'Todo' ? 'text-primary' : task.status == 'Done' ? 'text-success' : 'text-warning'">{{
+                task.status }}</span>
+            <button class="operation-button" v-if="task.status == 'Todo'" @click="changeStatus(task, 'In Progress')">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="currebluentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z"
+                        clip-rule="evenodd" />
+                </svg>
+                Start Task</button>
+            <button class="operation-button" v-if="task.status == 'In Progress'"
+                @click="changeStatus(task, 'Done')">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6" />
+                </svg>
+                Mark as completed</button>
+        </div>
     </div>
 </template>
 
@@ -84,6 +100,7 @@
     width: fit-content;
     padding: 0;
 }
+
 @media (max-width: 992px) {
     .task {
         margin: 20px auto 20px auto;

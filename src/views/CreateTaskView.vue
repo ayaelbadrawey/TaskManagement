@@ -1,27 +1,30 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
 
 const store = useStore();
+const router = useRouter();
 
 const task = reactive({
     title: "",
     description: "",
-    status: "todo",
+    status: "",
 });
 
-store.dispatch("addTask", { ...task });
-// Form submission handler
 const createTask = () => {
-    console.log("Task created:", task);
-
-    // Show success alert
-    alert(`Task Created!\nTitle: ${task.title}\nDescription: ${task.description}\nStatus: ${task.status}`);
-
-    // Reset form values
+    store.dispatch("addTask", { ...task });
     task.title = "";
     task.description = "";
-    task.status = "todo";
+    task.status = "";
+    Swal.fire({
+        title: 'Task Created!',
+        text: 'Your task has been successfully added.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+    });
+    router.push('/');
 };
 </script>
 
@@ -42,13 +45,13 @@ const createTask = () => {
             <div class="d-flex flex-column gap-1 align-items-baseline mb-5">
                 <label for="status" class="fs-5">Status</label>
                 <select id="status" v-model="task.status" class="custom-input" required>
-                    <option value="todo">To Do</option>
-                    <option value="inprogress">In Progress</option>
-                    <option value="completed">Completed</option>
+                    <option value="Todo">Todo</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Done">Done</option>
                 </select>
             </div>
             <div class="d-flex flex-row justify-content-center gap-2">
-                <button type="submit" class="btn btn-primary w-25">Create Task</button>
+                <button type="submit" class="btn btn-success w-25">Create Task</button>
                 <router-link to="/" class="btn btn-light w-25 text-center align-self-center p-2">
                     Back
                 </router-link>

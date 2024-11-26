@@ -11,6 +11,6 @@ const tasks = computed(() => store.getters.allTasks);
 <template>
   <main class="row">
     <PlusTask class="col-lg-3 col-12"></PlusTask>
-    <Task v-for="i in 10" class="col-lg-3 col-12"></Task>
+    <Task v-for="task in tasks" class="col-lg-3 col-12" :task="task"></Task>
   </main>
 </template>
