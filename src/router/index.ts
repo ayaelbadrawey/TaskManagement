@@ -4,6 +4,7 @@ import CreateTaskView from '../views/CreateTaskView.vue'
 import TodoTasksView from '../views/TodoTasksView.vue'
 import InProgressTasksView from "../views/InProgressTasksView.vue";
 import CompletedTasksView from "../views/CompletedTasksView.vue";
+import TaskDetailsView from "../views/TaskDetailsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/add-task",
       name: "Create New Task",
       component: CreateTaskView,
+    },
+    {
+      path: "/task/:id",
+      name: "Task Details",
+      component: TaskDetailsView,
     },
   ],
 });
