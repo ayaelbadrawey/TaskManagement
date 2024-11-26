@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useStore } from "vuex";
 import Swal from 'sweetalert2';
 

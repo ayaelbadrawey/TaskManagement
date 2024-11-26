@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
     <div class="sidebar mx-4 py-3">
         <h3>Task-Management</h3>
