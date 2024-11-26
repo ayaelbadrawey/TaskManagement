@@ -29,7 +29,7 @@ const createTask = () => {
 </script>
 
 <template>
-    <div>
+    <div class="form-container">
         <h3 class="text-center my-3">Create New Task</h3>
         <form @submit.prevent="createTask" class="d-flex flex-column">
             <div class="d-flex flex-column gap-1 align-items-baseline mb-5">
@@ -50,8 +50,8 @@ const createTask = () => {
                     <option value="Done">Done</option>
                 </select>
             </div>
-            <div class="d-flex flex-row justify-content-center gap-2">
-                <button type="submit" class="btn btn-success w-25">Create Task</button>
+            <div class="d-flex flex-row justify-content-lg-center justify-content-between gap-2 btn-container">
+                <button type="submit" class="btn btn-success w-25 ">Create Task</button>
                 <router-link to="/" class="btn btn-light w-25 text-center align-self-center p-2">
                     Back
                 </router-link>
@@ -60,7 +60,7 @@ const createTask = () => {
     </div>
 </template>
 
-<style scoped>
+<style>
 .custom-input{
     width: 100%;
     padding: 8px;
@@ -72,5 +72,16 @@ textarea{
 }
 .custom-input:focus{
     outline: none;
+}
+@media (max-width: 992px) {
+    .form-container {
+        padding: 10px 25px 10px 25px;
+    }
+    .btn-container > button{
+        width: 50% !important;
+    }
+    .btn-container > a{
+        width: 50% !important;
+    }
 }
 </style>

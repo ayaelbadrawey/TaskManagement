@@ -24,7 +24,7 @@ const updateTask = () => {
 </script>
 
 <template>
-    <div>
+    <div class="form-container">
         <h3 class="text-center my-3">Update Your Task</h3>
         <form @submit.prevent="updateTask" class="d-flex flex-column">
             <div class="d-flex flex-column gap-1 align-items-baseline mb-5">
@@ -45,7 +45,7 @@ const updateTask = () => {
                     <option value="Done">Done</option>
                 </select>
             </div>
-            <div class="d-flex flex-row justify-content-center gap-2">
+            <div class="d-flex flex-row justify-content-lg-center justify-content-between gap-2 btn-container">
                 <button type="submit" class="btn btn-success w-25">Update Task</button>
                 <router-link to="/" class="btn btn-light w-25 text-center align-self-center p-2">
                     Back
@@ -55,7 +55,7 @@ const updateTask = () => {
     </div>
 </template>
 
-<style scoped>
+<!-- <style scoped>
 .custom-input {
     width: 100%;
     padding: 8px;
@@ -70,4 +70,4 @@ textarea {
 .custom-input:focus {
     outline: none;
 }
-</style>
+</style> -->
