@@ -5,7 +5,7 @@ interface Task {
   id: number;
   title: string;
   description: string;
-  status: "todo" | "inprogress" | "completed";
+  status: "Todo" | "In Progress" | "Done";
 }
 
 interface State {
@@ -33,17 +33,17 @@ const store = createStore<State>({
     },
   },
   actions: {
-    addTask({ commit }, task: Omit<Task, "id">) {
+    addTask({ commit }: any, task: Omit<Task, "id">) {
       const newTask: Task = {
         ...task,
-        id: Date.now(), 
+        id: Date.now(),
       };
       commit("ADD_TASK", newTask);
     },
-    updateTask({ commit }, updatedTask: Task) {
+    updateTask({ commit } : any, updatedTask: Task) {
       commit("UPDATE_TASK", updatedTask);
     },
-    deleteTask({ commit }, taskId: number) {
+    deleteTask({ commit } : any, taskId: number) {
       commit("DELETE_TASK", taskId);
     },
   },
@@ -51,7 +51,15 @@ const store = createStore<State>({
     allTasks(state: State): Task[] {
       return state.tasks;
     },
-
+    todoTasks(state: State): Task[] {
+      return state.tasks.filter((task) => task.status == "Todo");
+    },
+    inProgressTasks(state: State): Task[] {
+      return state.tasks.filter((task) => task.status == "In Progress");
+    },
+    completedTasks(state: State): Task[] {
+      return state.tasks.filter((task) => task.status == "Done");
+    },
     getTaskById:
       (state: State) =>
       (id: number): Task | undefined => {
