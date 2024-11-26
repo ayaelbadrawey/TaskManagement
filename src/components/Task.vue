@@ -1,0 +1,92 @@
+<script setup>
+
+</script>
+
+<template>
+    <div class="task">
+        <div class="d-flex justify-content-between w-100 h-0">
+            <h4 class="m-0">Title</h4>
+            <button class="edit-button" @click="goToEditPage(id)">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                </svg>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                </svg>
+            </button>
+        </div>
+        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, iure adipisci a
+            delectus
+            reiciendis ex! Facere necessitatibus reprehenderit laborum optio aut repudiandae, quos amet modi est quaerat
+            qui vel laudantium! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique architecto sunt
+            voluptates corrupti esse itaque tempora repellat autem aspernatur accusamus, beatae quia iste sequi
+            veritatis consequatur, at et aperiam nihil.</div>
+        <span class="text-primary">Todo</span>
+        <button class="operation-button">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currebluentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z"
+                    clip-rule="evenodd" />
+            </svg>
+            Start Task</button>
+        <!-- <span class="text-warning">In-Progress</span>
+        <button class="operation-button">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6" />
+            </svg>
+            Mark as completed</button>
+        <span class="text-success">Completed</span> -->
+    </div>
+</template>
+
+<style scoped>
+.task {
+    background-color: lavender;
+    height: 350px;
+    width: 300px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 20px;
+}
+
+.task>div {
+    height: fit-content;
+    align-items: baseline;
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+}
+
+.edit-button {
+    height: unset !important;
+    border: unset;
+    background-color: unset;
+    display: flex;
+}
+
+.operation-button {
+    border: unset;
+    background-color: unset;
+    width: fit-content;
+    padding: 0;
+}
+@media (max-width: 992px) {
+    .task {
+        margin: 20px auto 20px auto;
+    }
+}
+</style>
